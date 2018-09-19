@@ -41,7 +41,7 @@ def checkTalkingUsers(user):
         activeUsers.remove(user)
     else:
         activeUsers.append(user)
-    resetUser()
+    triggerAlarm()
 
 def resetUser():
     activeUsers = []

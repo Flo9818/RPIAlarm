@@ -2,7 +2,7 @@ import websocket
 import ssl
 import json
 
-destUri = "wss://localhost:3000";
+destUri = "ws://vileadgentest.westeurope.cloudapp.azure.com:3000";
 
 def on_message(ws, message):
     try:
@@ -28,4 +28,5 @@ ws = websocket.WebSocketApp(destUri,
     on_error = on_error,
     on_close = on_close)
 ws.on_open = on_open
-ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE})
+#ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE})
+ws.run_forever()
