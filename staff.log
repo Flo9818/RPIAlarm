@@ -1,0 +1,35 @@
+# Command logfile created by Lynx 2.8.9rel.1 (08 Jul 2018)
+# Arg0 = lynx
+# Arg1 = -cmd_log=staff.log
+# Arg2 = -accept_all_cookies
+# Arg3 = http://www.google.de
+key Right Arrow
+key S
+key i
+key F
+key r
+key <tab>
+key d
+key a
+key r
+key t
+key h
+key m
+key a
+key u
+key l
+key <tab>
+key <tab>
+key <tab>
+key ^J
+key <tab>
+key <tab>
+key ^J
+key <tab>
+key ^J
+key :
+key q
+key j
+key <delete>
+key ^J
+key j
