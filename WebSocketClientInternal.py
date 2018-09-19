@@ -1,7 +1,7 @@
 import websocket
 import ssl
 
-destUri = "wss://localhost:3000";
+destUri = "ws://localhost:3000";
 ws = None
 
 def on_message(ws, message):
