@@ -60,7 +60,7 @@ def rest():
 
 def ws():
     #server = SimpleSSLWebSocketServer('', 3000, WebSocketController, certfile='cert.pem', keyfile='key.pem')
-    server = SimpleWebSocketServer('', 3000, WebSocketController)
+    server = SimpleWebSocketServer('0.0.0.0', 3000, WebSocketController)
     print('Starting Websocketserver on port ' + str(3000))
     server.serveforever()
 
