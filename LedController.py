@@ -24,7 +24,7 @@ class LedController:
             virtual.set_position((offset, 0))
             sleep(0.1)
             offset = offset+1
-            if offset == 60:
+            if offset == 75:
                 offset = 0
         device.clear()
 
