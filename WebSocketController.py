@@ -1,7 +1,8 @@
 from SimpleWebSocketServer import SimpleWebSocketServer, WebSocket
-
 clients = []
-class Server(WebSocket):
+
+class WebSocketController(WebSocket):
+    port = 3000
 
     def handleMessage(self):
        for client in clients:
@@ -19,8 +20,3 @@ class Server(WebSocket):
        print(self.address, 'closed')
        for client in clients:
           client.sendMessage(self.address[0] + u' - disconnected')
-
-port = 3000
-server = SimpleWebSocketServer('', port, Server)
-print('Starting Websocketserver on port ' + str(port))
-server.serveforever()
