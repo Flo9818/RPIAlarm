@@ -7,7 +7,7 @@ from luma.core.virtual import viewport
 from time import sleep
 
 serial = spi(port=0, device=0, gpio=noop())
-device = max7219(serial, cascaded=2, block_orientation=90, rotate=2)
+device = max7219(serial, cascaded=4, block_orientation=-90, rotate=2)
 virtual = viewport(device, width=200, height=20)
 
 
@@ -17,7 +17,7 @@ class LedController:
 
     def draw(self):
         with canvas(virtual) as draw:
-            text(draw, (16, 0), "On Air", fill="white",
+            text(draw, (32, 0), "On Air", fill="white",
                  font=proportional(CP437_FONT))
         offset = 0
         while self.enabled:
@@ -26,9 +26,6 @@ class LedController:
             offset = offset+1
             if offset == 60:
                 offset = 0
-
-    def setEnabled(self, enabled):
-        self.enabled = enabled
-
+        device.clear()
 
 device.clear()
