@@ -40,4 +40,5 @@ ws = websocket.WebSocketApp(destUri,
                             on_close=on_close)
 ws.on_open = on_open
 #ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE})
-ws.run_forever()
+while True:
+    ws.run_forever()

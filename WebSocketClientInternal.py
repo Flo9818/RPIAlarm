@@ -31,4 +31,5 @@ def getWs():
 
 def run():
     global ws
-    ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE})
+    while True:
+        ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE})
