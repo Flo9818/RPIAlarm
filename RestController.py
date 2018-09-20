@@ -1,5 +1,5 @@
+from gevent.pywsgi import WSGIServer
 from flask import Flask, Response, request, jsonify
-from flask_socketio import SocketIO
 import threading
 from WebSocketController import WebSocketController
 from SimpleWebSocketServer import SimpleSSLWebSocketServer, SimpleWebSocketServer, WebSocket
@@ -8,7 +8,6 @@ from WebSocketClientInternal import run, getWs, send
 
 
 app = Flask(__name__)
-socketio = SocketIO(app)
 
 client = None
 activeUsers = []
@@ -55,11 +54,13 @@ def triggerAlarm():
         send(json.dumps({'COMMAND': 'enable'}))
 
 def rest():
-    app.run(ssl_context=('cert.pem', 'key.pem'), port=5000)
+    server = WSGIServer(('0.0.0.0', 5000), app)
+    server.serve_forever()
+    #app.run(host='0.0.0.0', port=5000)
 
 def ws():
-    server = SimpleSSLWebSocketServer('', 3000, WebSocketController, certfile='cert.pem', keyfile='key.pem')
-    #server = SimpleWebSocketServer('', 3000, WebSocketController)
+    #server = SimpleSSLWebSocketServer('', 3000, WebSocketController, certfile='cert.pem', keyfile='key.pem')
+    server = SimpleWebSocketServer('', 3000, WebSocketController)
     print('Starting Websocketserver on port ' + str(3000))
     server.serveforever()
 
