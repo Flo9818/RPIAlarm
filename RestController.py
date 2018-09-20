@@ -64,6 +64,13 @@ def log():
     return jsonify(logs)
 
 
+@app.route('/clearLogs', methods=['DELETE'])
+def clearLogs():
+    global logs
+    logs = []
+    return '', 204
+
+
 def checkTalkingUsers(user):
     if user in activeUsers:
         activeUsers.remove(user)
@@ -75,7 +82,7 @@ def checkTalkingUsers(user):
 
 
 def resetUser():
-    global activeUsers
+    global activeUsers, lastCommand
     activeUsers = []
     send(json.dumps({'COMMAND': 'disable'}))
     lastCommand = 'disable'
@@ -87,6 +94,8 @@ def triggerAlarm():
         if lastCommand == 'enable':
             send(json.dumps({'COMMAND': 'disable'}))
             lastCommand = 'disable'
+        elif lastCommand == 'disable':
+            send(json.dumps({'COMMAND': 'enable'}))
     else:
         if lastCommand == 'disable':
             send(json.dumps({'COMMAND': 'enable'}))
@@ -115,7 +124,7 @@ def runClient():
 
 def createLogEntry(user, action):
     global logs
-    logs.append({"user": user, "action": action, "time": datetime.datetime.fromtimestamp(
+    logs.append({"user": user, "action": action, "date": datetime.datetime.fromtimestamp(
         time.time()).strftime('%Y-%m-%d %H:%M:%S')})
 
 
