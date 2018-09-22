@@ -1,0 +1,32 @@
+<!doctype html>
+<style type="text/css">
+	#mainPopup {
+		width: 400px;
+		margin-bottom: 1em;
+	}
+</style>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!--Import materialize.css-->
+<link type="text/css" rel="stylesheet" href="../../css/materialize.min.css" media="screen,projection" />
+<div id="mainPopup" class="container">
+	<h4>RPIAlarm</h4>
+	<button class="waves-effect waves-light btn" id="resetBtn">Reset alarm</button>
+	<h5>Settings</h5>
+	<div class="input-field col">
+		<h6>Server url</h6>
+		<input id="url" type="text">
+	</div>
+	<div class="input-field col">
+		<h6>Name</h6>
+		<input id="name" type="text">
+	</div>
+	<div class="input-field col">
+		<h6>Bearer token</h6>
+		<input id="token" type="text">
+	</div>
+	<button id="saveBtn" class="waves-effect waves-light btn">Save settings</button>
+</div>
+
+<script type="text/javascript" src="browser_action.js"></script>
+<script type="text/javascript" src="../../js/materialize.min.js"></script>
