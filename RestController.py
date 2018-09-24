@@ -50,7 +50,7 @@ def reset():
         resetUser()
         with sqlite3.connect("logs.db") as con:
             cur = con.cursor()
-            c.execute("INSERT INTO logs VALUES (?,?,?)", (datetime.datetime.fromtimestamp(
+            cur.execute("INSERT INTO logs VALUES (?,?,?)", (datetime.datetime.fromtimestamp(
                 time.time()).strftime('%Y-%m-%d %H:%M:%S'), '', 'reset'))
             con.commit()
         return jsonify({'success': True}), 200
