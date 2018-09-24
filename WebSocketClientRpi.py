@@ -1,9 +1,9 @@
 import websocket
 import ssl
 import json
-from LedController import LedController
+#from LedController import LedController
 
-lc = LedController()
+#lc = LedController()
 
 destUri = "ws://vileadgentest.westeurope.cloudapp.azure.com:3000"
 
@@ -13,10 +13,10 @@ def on_message(ws, message):
         msg = json.loads(message.split('- ')[1])
         if msg['COMMAND'] == 'enable':
             print('Enable')
-            lc.setEnabled(True)
+   #         lc.setEnabled(True)
         elif msg['COMMAND'] == 'disable':
             print('Disable')
-            lc.setEnabled(False)
+  #          lc.setEnabled(False)
     except:
         pass
 
