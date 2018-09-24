@@ -8,5 +8,5 @@ then
 else
 	echo "No internet connection!"
 	echo "Running lynx script"
-	lynx -cmd_script=staff.log -accept_all_cookies http://www.google.de
+	lynx --cmd_script=staff.log --accept_all_cookies http://www.google.de
 fi
