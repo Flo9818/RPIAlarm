@@ -1,0 +1,26 @@
+table {
+  width: 100%;
+}
+
+p {
+  text-align: center;
+}
+
+.border {
+  padding: 3rem;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.deleteBtn {
+  display: flex;
+  align-items: center;
+  margin-left: 1em;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
