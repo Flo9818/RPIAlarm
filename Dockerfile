@@ -5,7 +5,6 @@ ADD WebSocketClientInternal.py /
 ADD cert.pem /
 ADD key.pem /
 ADD WebSocketController.py /
-ADD logs.db /
 
 RUN pip install flask flask_cors websocket-client gevent git+https://github.com/dpallot/simple-websocket-server.git
 

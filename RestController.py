@@ -7,18 +7,7 @@ import json
 import datetime
 import time
 from WebSocketClientInternal import run, getWs, send
-import sqlite3
 from flask_cors import CORS
-
-conn = sqlite3.connect('logs.db')
-
-try:
-    # Create table
-    c = conn.cursor()
-    c.execute('''CREATE TABLE logs
-                (date text, action text, user text)''')
-except sqlite3.OperationalError:
-    pass
 
 
 app = Flask(__name__)
@@ -51,11 +40,6 @@ def reset():
         if secret != 'Bearer secret':
             return jsonify({'error': 'Wrong credentials'}), 400
         resetUser()
-        with sqlite3.connect("logs.db") as con:
-            cur = con.cursor()
-            cur.execute("INSERT INTO logs VALUES (?,?,?)", (datetime.datetime.fromtimestamp(
-                time.time()).strftime('%Y-%m-%d %H:%M:%S'), '', 'reset'))
-            con.commit()
         return jsonify({'success': True}), 200
     return jsonify({'error': 'Bad request'}), 400
 
@@ -65,43 +49,16 @@ def mutedUsers():
     return jsonify({'activeUsers': activeUsers})
 
 
-@app.route('/log', methods=['GET'])
-def log():
-    with sqlite3.connect("logs.db") as con:
-        cur = con.cursor()
-        tmp = []
-        for row in cur.execute('SELECT * FROM logs ORDER BY date DESC'):
-            tmp.append({"date": row[0], "name": row[1], "action": row[2]})
-        return jsonify(tmp)
-
-
 @app.route('/status', methods=['GET'])
 def status():
     return jsonify({'enabled': len(activeUsers) != 0})
 
 
-@app.route('/clearLogs', methods=['DELETE'])
-def clearLogs():
-    with sqlite3.connect("logs.db") as con:
-        cur = con.cursor()
-        cur.execute("DELETE FROM logs")
-        return '', 204
-
-
 def checkTalkingUsers(user):
-    with sqlite3.connect("logs.db") as con:
-        cur = con.cursor()
-        if user in activeUsers:
-            activeUsers.remove(user)
-            cur.execute("INSERT INTO logs VALUES (?,?,?)", (datetime.datetime.fromtimestamp(
-                time.time()).strftime('%Y-%m-%d %H:%M:%S'), user, 'unmuted'))
-            logs.append(createLogEntry(user, 'unmuted'))
-        else:
-            activeUsers.append(user)
-            cur.execute("INSERT INTO logs VALUES (?,?,?)", (datetime.datetime.fromtimestamp(
-                time.time()).strftime('%Y-%m-%d %H:%M:%S'), user, 'muted'))
-            logs.append(createLogEntry(user, 'muted'))
-        con.commit()
+    if user in activeUsers:
+        activeUsers.remove(user)
+    else:
+        activeUsers.append(user)
     triggerAlarm()
 
 
