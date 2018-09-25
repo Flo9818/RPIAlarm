@@ -8,6 +8,7 @@ import datetime
 import time
 from WebSocketClientInternal import run, getWs, send
 import sqlite3
+from flask_cors import CORS
 
 conn = sqlite3.connect('logs.db')
 
@@ -19,7 +20,9 @@ try:
 except sqlite3.OperationalError:
     pass
 
+
 app = Flask(__name__)
+CORS(app)
 
 client = None
 activeUsers = []
@@ -103,6 +106,7 @@ def checkTalkingUsers(user):
 
 
 def resetUser():
+    global activeUsers
     activeUsers = []
     send(json.dumps({'COMMAND': 'disable'}))
     lastCommand = 'disable'
