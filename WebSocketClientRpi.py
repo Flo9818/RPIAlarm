@@ -5,8 +5,8 @@ import json
 
 #lc = LedController()
 
-destUri = "wss://rpialarm-r-vi-on-air-alert.dev.paas.viessmann.com"
-
+#destUri = "wss://rpialarm-r-vi-on-air-alert.dev.paas.viessmann.com"
+destUri = "ws://vileadgentest.westeurope.cloudapp.azure.com:3000"
 
 def on_message(ws, message):
     try:
