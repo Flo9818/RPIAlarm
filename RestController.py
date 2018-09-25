@@ -39,9 +39,9 @@ def reset():
         secret = request.headers.get('Authorization')
         if secret != 'Bearer secret':
             return jsonify({'error': 'Wrong credentials'}), 400
-        user = request.args.get('user')
+        #user = request.args.get('user')
         resetUser()
-        createLogEntry(user, 'reset')
+        #createLogEntry(user, 'reset')
         return jsonify({'success': True}), 200
     return jsonify({'error': 'Bad request'}), 400
 
@@ -59,10 +59,10 @@ def status():
 def checkTalkingUsers(user):
     if user in activeUsers:
         activeUsers.remove(user)
-        createLogEntry(user, 'unmuted')
+        #createLogEntry(user, 'unmuted')
     else:
         activeUsers.append(user)
-        createLogEntry(user, 'muted')
+        #createLogEntry(user, 'muted')
     triggerAlarm()
 
 
