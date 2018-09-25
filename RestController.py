@@ -39,7 +39,9 @@ def reset():
         secret = request.headers.get('Authorization')
         if secret != 'Bearer secret':
             return jsonify({'error': 'Wrong credentials'}), 400
+        user = request.args.get('user')
         resetUser()
+        createLogEntry(user, 'reset')
         return jsonify({'success': True}), 200
     return jsonify({'error': 'Bad request'}), 400
 
@@ -57,8 +59,10 @@ def status():
 def checkTalkingUsers(user):
     if user in activeUsers:
         activeUsers.remove(user)
+        createLogEntry(user, 'unmuted')
     else:
         activeUsers.append(user)
+        createLogEntry(user, 'muted')
     triggerAlarm()
 
 
@@ -101,8 +105,8 @@ def runClient():
 
 
 def createLogEntry(user, action):
-    return {"user": user, "action": action, "time": datetime.datetime.fromtimestamp(
-        time.time()).strftime('%Y-%m-%d %H:%M:%S')}
+    print({"user": user, "action": action, "time": datetime.datetime.fromtimestamp(
+        time.time()).strftime('%Y-%m-%d %H:%M:%S')})
 
 
 if __name__ == "__main__":
