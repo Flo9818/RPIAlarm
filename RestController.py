@@ -64,7 +64,7 @@ def log():
     return jsonify(logs)
 
 
-@app.route('/clearLogs', methods=['PUT'])
+@app.route('/clearLogs', methods=['DELETE'])
 def clearLogs():
     global logs
     logs = []
