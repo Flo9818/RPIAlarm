@@ -75,7 +75,7 @@ def checkTalkingUsers(user):
 
 
 def resetUser():
-    global activeUsers
+    global activeUsers, lastCommand
     activeUsers = []
     send(json.dumps({'COMMAND': 'disable'}))
     lastCommand = 'disable'
