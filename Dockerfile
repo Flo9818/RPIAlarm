@@ -6,4 +6,7 @@ COPY WebSocketController.py .
 
 RUN pip install flask-cors git+https://github.com/dpallot/simple-websocket-server.git gevent flask websocket-client
 
-CMD ["python RestController.py"]
+EXPOSE 5000
+EXPOSE 3000
+
+ENTRYPOINT exec python RestController.py
