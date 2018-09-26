@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl: 'http://vileadgentest.westeurope.cloudapp.azure.com:5000'
+  baseUrl: 'https://rpialarm-rest.dev.paas.viessmann.com'
 };

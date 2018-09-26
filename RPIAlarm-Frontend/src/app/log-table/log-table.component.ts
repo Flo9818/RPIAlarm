@@ -24,7 +24,7 @@ export class LogTableComponent implements OnInit {
   pipe = new DatePipe('de-DE');
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['date', 'time', 'name', 'action'];
+  displayedColumns = ['date', 'time', 'user', 'action'];
 
   constructor(private backend: BackendService, private snackBar: MatSnackBar) {
   }

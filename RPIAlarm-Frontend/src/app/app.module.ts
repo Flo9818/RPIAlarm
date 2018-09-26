@@ -10,11 +10,12 @@ import {
   MatTabsModule,
   MatToolbarModule,
   MatButtonModule,
-  MatProgressSpinnerModule, MatSnackBarModule, MatCardModule, MatListModule
+  MatProgressSpinnerModule, MatSnackBarModule, MatCardModule, MatListModule, MatInputModule, MatIconModule, MatTooltipModule
 } from '@angular/material';
 import {LogTableComponent} from './log-table/log-table.component';
 import {HttpClientModule} from '@angular/common/http';
 import { ActionComponent } from './action/action.component';
+import {AppRoutingModule} from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,11 @@ import { ActionComponent } from './action/action.component';
     MatSnackBarModule,
     MatCardModule,
     MatListModule,
-    HttpClientModule
+    MatInputModule,
+    MatIconModule,
+    MatTooltipModule,
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

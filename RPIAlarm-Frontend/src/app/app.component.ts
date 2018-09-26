@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../environments/environment';
-import {BackendService} from './backend.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +8,12 @@ import {BackendService} from './backend.service';
 })
 export class AppComponent implements OnInit {
   title = 'RPIAlarm';
+  links = ['Control', 'Log'];
+  activeLink: string;
+
+  constructor() {}
 
   ngOnInit() {
-
+    this.activeLink = window.location.pathname.split('/')[1];
   }
 }

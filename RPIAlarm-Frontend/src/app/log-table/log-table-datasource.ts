@@ -9,7 +9,7 @@ import localeDe from '@angular/common/locales/de';
 registerLocaleData(localeDe);
 
 export interface LogTableItem {
-  name: string;
+  user: string;
   date: Date;
   action: string;
 }
@@ -74,7 +74,7 @@ export class LogTableDataSource extends DataSource<LogTableItem> {
     return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
-        case 'name': return compare(a.name, b.name, isAsc);
+        case 'name': return compare(a.user, b.user, isAsc);
         case 'action': return compare(a.action, b.action, isAsc);
         case 'date': return compare(this.pipe.transform(a.date, 'mediumDate'), this.pipe.transform(b.date, 'mediumDate'), isAsc);
         case 'time': return compare(this.pipe.transform(a.date, 'mediumTime'), this.pipe.transform(b.date, 'mediumTime'), isAsc);

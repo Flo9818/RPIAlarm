@@ -19,7 +19,7 @@ export class BackendService {
     return this.http.get<LogTableItem[]>(`${environment.baseUrl}/log`).pipe(map(logs => logs.map(log => {
       return {
         date: new Date(log.date),
-        name: log.name,
+        user: log.user,
         action: log.action
       };
     })));
@@ -36,13 +36,22 @@ export class BackendService {
   resetUser(): Observable<any> {
     return this.http.put<any>(`${environment.baseUrl}/reset`, '', {
       headers: new HttpHeaders({
-        Authorization: 'Bearer secret',
-        user: 'Webuser'
-      })
+        Authorization: 'Bearer secret'
+      }),
+      params: new HttpParams().set('user', 'Webapp')
     });
   }
 
   deleteLog(): Observable<any> {
     return this.http.delete<any>(`${environment.baseUrl}/clearLogs`);
+  }
+
+  trigger(user: string): Observable<any> {
+    return this.http.put<any>(`${environment.baseUrl}/trigger`, '', {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer secret'
+      }),
+      params: new HttpParams().set('user', user)
+    });
   }
 }

@@ -22,12 +22,25 @@ export class ActionComponent implements OnInit {
 
   getUser() {
     this.backend.getStatus().subscribe(status => this.status = status);
-    this.backend.getMutedUsers().subscribe(mutedUser => console.log(this.mutedUser));
+    this.backend.getMutedUsers().subscribe(mutedUser => this.mutedUser = mutedUser);
   }
 
   reset() {
     this.backend.resetUser().subscribe((res: HttpResponse<any>) => {
-      this.snackBar.open('Successfully resetted user', 'Dismiss', {
+      this.snackBar.open('Successfully unmuted all user', 'Dismiss', {
+        duration: 2000,
+      });
+      this.getUser();
+    }, (error: HttpErrorResponse) => {
+      this.snackBar.open(`${error.status}: ${error.message}`, 'Dismiss', {
+        duration: 2000,
+      });
+    });
+  }
+
+  trigger(user: string) {
+    this.backend.trigger(user).subscribe((res: HttpResponse<any>) => {
+      this.snackBar.open(`Successfully trigger ${user}`, 'Dismiss', {
         duration: 2000,
       });
       this.getUser();
