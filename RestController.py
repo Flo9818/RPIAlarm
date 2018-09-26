@@ -78,16 +78,17 @@ def resetUser():
     global activeUsers, lastCommand
     activeUsers = []
     send(json.dumps({'COMMAND': 'disable'}))
-    lastCommand = 'reset'
+    lastCommand = 'disable'
 
 
 def triggerAlarm():
     global server, lastCommand
+    print(lastCommand)
     if len(activeUsers) == 0:
         if lastCommand == 'enable':
             send(json.dumps({'COMMAND': 'disable'}))
             lastCommand = 'disable'
-        elif lastCommand == 'reset':
+        elif lastCommand == 'disable':
             send(json.dumps({'COMMAND': 'enable'}))
     else:
         if lastCommand == 'disable':
