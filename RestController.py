@@ -41,9 +41,9 @@ def reset():
         secret = request.headers.get('Authorization')
         if secret != 'Bearer secret':
             return jsonify({'error': 'Wrong credentials'}), 400
-        #user = request.args.get('user')
+        user = request.args.get('user')
         resetUser()
-        #createLogEntry(user, 'reset')
+        createLogEntry(user, 'reset')
         return jsonify({'success': True}), 200
     return jsonify({'error': 'Bad request'}), 400
 
@@ -58,13 +58,19 @@ def status():
     return jsonify({'enabled': len(activeUsers) != 0})
 
 
+@app.route('/log', methods=['GET'])
+def log():
+    global logs
+    return jsonify(logs)
+
+
 def checkTalkingUsers(user):
     if user in activeUsers:
         activeUsers.remove(user)
-        #createLogEntry(user, 'unmuted')
+        createLogEntry(user, 'unmuted')
     else:
         activeUsers.append(user)
-        #createLogEntry(user, 'muted')
+        createLogEntry(user, 'muted')
     triggerAlarm()
 
 
@@ -108,7 +114,8 @@ def runClient():
 
 
 def createLogEntry(user, action):
-    print({"user": user, "action": action, "time": datetime.datetime.fromtimestamp(
+    global logs
+    logs.append({"user": user, "action": action, "time": datetime.datetime.fromtimestamp(
         time.time()).strftime('%Y-%m-%d %H:%M:%S')})
 
 
