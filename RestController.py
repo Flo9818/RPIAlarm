@@ -64,6 +64,13 @@ def log():
     return jsonify(logs)
 
 
+@app.route('/clearLogs', methods=['PUT'])
+def clearLogs():
+    global logs
+    logs = []
+    return '', 204
+
+
 def checkTalkingUsers(user):
     if user in activeUsers:
         activeUsers.remove(user)
@@ -117,7 +124,7 @@ def runClient():
 
 def createLogEntry(user, action):
     global logs
-    logs.append({"user": user, "action": action, "time": datetime.datetime.fromtimestamp(
+    logs.append({"user": user, "action": action, "date": datetime.datetime.fromtimestamp(
         time.time()).strftime('%Y-%m-%d %H:%M:%S')})
 
 
