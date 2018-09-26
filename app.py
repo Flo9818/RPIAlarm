@@ -1,17 +1,19 @@
-from gevent.pywsgi import WSGIServer
-from flask import Flask, Response, request, jsonify
-import threading
-from WebSocketController import WebSocketController
-from SimpleWebSocketServer import SimpleSSLWebSocketServer, SimpleWebSocketServer, WebSocket
-import json
 import datetime
+import json
+import threading
 import time
-from WebSocketClientInternal import run, getWs, send
+
+from flask import Flask, Response, jsonify, request
 from flask_cors import CORS
+from gevent.pywsgi import WSGIServer
+from SimpleWebSocketServer import (SimpleSSLWebSocketServer,
+                                   SimpleWebSocketServer, WebSocket)
 
+from WebSocketClientInternal import getWs, run, send
+from WebSocketController import WebSocketController
 
-app = Flask(__name__)
-CORS(app)
+app = (Flask(__name__))
+cors = CORS(app)
 
 client = None
 activeUsers = []
@@ -87,6 +89,7 @@ def triggerAlarm():
 
 def rest():
     server = WSGIServer(('0.0.0.0', 5000), app)
+    print('Start REST server')
     server.serve_forever()
     #app.run(host='0.0.0.0', port=5000)
 
@@ -113,6 +116,6 @@ if __name__ == "__main__":
     ws = threading.Thread(target=ws)
     rest = threading.Thread(target=rest)
     client = threading.Thread(target=runClient)
-    rest.start()
     ws.start()
+    rest.start()
     client.start()
