@@ -1,22 +1,23 @@
 import websocket
 import ssl
 import json
-#from LedController import LedController
+from LedController import LedController
+from threading import Thread
+lc = LedController()
 
-#lc = LedController()
-
-#destUri = "wss://rpialarm-r-vi-on-air-alert.dev.paas.viessmann.com"
-destUri = "ws://vileadgentest.westeurope.cloudapp.azure.com:3000"
+destUri = "wss://rpialarm-r-vi-on-air-alert.dev.paas.viessmann.com"
+#destUri = "ws://vileadgentest.westeurope.cloudapp.azure.com:3000"
 
 def on_message(ws, message):
     try:
         msg = json.loads(message.split('- ')[1])
         if msg['COMMAND'] == 'enable':
             print('Enable')
-   #         lc.setEnabled(True)
+            lc.enabled = True
+            Thread(target=lc.draw).start()
         elif msg['COMMAND'] == 'disable':
             print('Disable')
-  #          lc.setEnabled(False)
+            lc.enabled = False
     except:
         pass
 
